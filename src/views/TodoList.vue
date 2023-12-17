@@ -1,26 +1,34 @@
 <script setup>
 import Calendar from '../components/Calendar.vue';
+import Task from '../components/Task.vue';
 import TodoList from '../components/TodoList.vue';
 </script>
 
 <template>
-    <span class="column_grid">
-        <div class="row_grid">
-            <Calendar></Calendar>
-            <p>Task</p>
+    <div class="span">
+        <div class="half">
+            <Calendar class="left"></Calendar>
+            <div class="left">
+                <Task></Task>
+            </div>
         </div>
-        <TodoList></TodoList>
-    </span>
+        <div class="half">
+            <TodoList></TodoList>
+        </div>
+    </div>
 </template>
 
 <style>
-.column_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+.span {
+    display: flex;
+    padding: 0 2rem 0 2rem;
 }
 
-.row_grid {
-    display: grid;
-    grid-template-rows: 3fr 2fr;
+.half {
+    width: 50%;
+}
+
+.left {
+    width: 90%;
 }
 </style>

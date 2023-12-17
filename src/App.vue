@@ -41,12 +41,12 @@ ul {
 .router_link {
   color: #11240E;
   text-decoration: none;
-  font-weight: 400;
+  font-weight: 500;
   margin: 0 1rem 0 1rem;
   transition: 0.3s;
 }
 
 .router_link:hover {
-  font-weight: 700;
+  font-weight: 800;
 }
 </style>

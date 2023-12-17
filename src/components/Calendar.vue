@@ -6,3 +6,9 @@ const value = ref(new Date())
 <template>
     <el-calendar v-model="value" />
 </template>
+
+<style>
+.el-calendar-table .el-calendar-day {
+    height: 50px;
+}
+</style>
