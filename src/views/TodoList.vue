@@ -7,8 +7,8 @@ import TodoList from '../components/TodoList.vue';
 <template>
     <div class="span">
         <div class="half">
-            <Calendar class="left"></Calendar>
-            <div class="left">
+            <Calendar class="left_part"></Calendar>
+            <div class="left_part">
                 <Task></Task>
             </div>
         </div>
@@ -28,7 +28,7 @@ import TodoList from '../components/TodoList.vue';
     width: 50%;
 }
 
-.left {
+.left_part {
     width: 90%;
 }
 </style>
