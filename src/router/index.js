@@ -4,14 +4,14 @@ const routes = [
     { path: '/', redirect: '/home' },
     {
         path: '/home', redirect: '/home/list', component: () => import('@/views/Main.vue'), children: [
-            { path: 'list', name: 'list', component: () => import('@/views/TodoList.vue') },
-            { path: 'table', name: 'table', component: () => import('@/views/TodoList.vue') },
+            { path: 'list', name: 'list', component: () => import('@/components/List/List.vue') },
+            { path: 'table', name: 'table', component: () => import('@/components/List/List.vue') },
         ]
     },
     {
-        path: '/auth', redirect: '/auth/login', children: [
-            { path: 'login', name: 'login', component: () => import('@/views/Login.vue') },
-            { path: 'register', name: 'register', component: () => import('@/views/Login.vue') },
+        path: '/auth', redirect: '/auth/login', component: () => import('@/views/Auth.vue'), children: [
+            { path: 'login', name: 'login', component: () => import('@/components/LoginForm.vue') },
+            { path: 'register', name: 'register', component: () => import('@/components/RegisterForm.vue') },
         ]
     }
 ]

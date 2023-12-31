@@ -1,7 +1,7 @@
 <script setup>
-import Calendar from '../components/Calendar.vue';
-import Task from '../components/Task.vue';
-import TodoList from '../components/TodoList.vue';
+import Calendar from './Calendar.vue';
+import Task from './Task.vue';
+import TodoList from './TodoList.vue';
 </script>
 
 <template>
