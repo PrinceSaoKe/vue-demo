@@ -1,4 +1,7 @@
 <script setup>
+import { useProfileStore } from '@/store/profileStore.js';
+
+const profileStore = useProfileStore()
 </script>
 
 <template>
@@ -9,7 +12,7 @@
                 <router-link to="/home" class="router_link">表格展示</router-link>
             </ul>
             <ul class="nav">
-                <p>2596818595@qq.com</p>
+                <p>{{ profileStore.email }}</p>
                 <router-link to="/auth/login" class="router_link">退出</router-link>
             </ul>
         </el-header>

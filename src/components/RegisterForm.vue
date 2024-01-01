@@ -1,6 +1,9 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter()
 
 interface RegisterForm {
     username: string,
@@ -38,6 +41,7 @@ async function submit(ruleFormRef: FormInstance | undefined) {
         if (valid) {
             register(registerForm)
             alert('注册成功')
+            router.push('/auth/login')
         }
     })
 }
