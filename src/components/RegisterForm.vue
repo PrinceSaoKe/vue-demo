@@ -27,18 +27,24 @@ const rules = reactive<FormRules<RegisterForm>>({
     ],
     password: [
         { required: true, message: "请输入密码", trigger: 'blur' },
-        { min: 8, max: 20, message: "长度必须在8~20之间，且同时包含大小写", trigger: 'blur' },
+        { min: 8, max: 20, pattern: /(?=.*[a-z])(?=.*[A-Z])/, message: "长度必须在8~20之间，且同时包含大小写", trigger: 'blur' },
     ],
 })
 
 async function submit(ruleFormRef: FormInstance | undefined) {
     if (!ruleFormRef) return
-    await ruleFormRef.validate((valid, fields) => {
+    await ruleFormRef.validate((valid) => {
         // 检测成功
         if (valid) {
+            register(registerForm)
             alert('注册成功')
         }
     })
+}
+
+function register(formData: Object) {
+    const str = JSON.stringify(formData)
+    localStorage.setItem(formData['username'], str)
 }
 </script>
 
