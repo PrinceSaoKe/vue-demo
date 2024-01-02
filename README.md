@@ -1,7 +1,6 @@
-# Vue 3 + Vite
+# 遇到的问题
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+* CSS写的不够熟练，调整布局和样式要写好久
+* 一些官方文档里用到了好像是ts，有空要了解一下
+* 题目说用导航栏用Banner，但是我没有在ElementPlus里找到这个组件
+* `el-menu`的`background-color`官方文档上说被弃用了，改用`--bg-color`，还没搞清楚要怎么用，写在css里也没效果

@@ -1,20 +1,28 @@
 <script setup>
 import { useProfileStore } from '@/store/profileStore.js';
+import { onMounted, ref } from "vue";
 
 const profileStore = useProfileStore()
+
+const authRef = ref(false)
+
+onMounted(() => {
+    authRef.value = profileStore.username !== ''
+    console.log(authRef.value)
+})
 </script>
 
 <template>
     <el-container>
         <el-header class="header">
-            <ul class="nav">
-                <router-link to="/home" class="router_link">TodoList</router-link>
-                <router-link to="/home" class="router_link">表格展示</router-link>
-            </ul>
-            <ul class="nav">
-                <p>{{ profileStore.email }}</p>
-                <router-link to="/auth/login" class="router_link">退出</router-link>
-            </ul>
+            <el-menu mode="horizontal" default-active=/home/list background-color="#DDEBDB" :ellipsis="false"
+                active-text-color="#456442" text-color="#456442" :router="true">
+                <el-menu-item index="/home/list">TodoList</el-menu-item>
+                <el-menu-item index="/home/table">表格展示</el-menu-item>
+                <div class="menu-flex-grow"></div>
+                <el-menu-item index="/auth/login" v-if="authRef">{{ profileStore.email }}</el-menu-item>
+                <el-menu-item index="/auth/login">{{ authRef ? '退出' : '登录' }}</el-menu-item>
+            </el-menu>
         </el-header>
         <el-main>
             <router-view></router-view>
@@ -25,31 +33,13 @@ const profileStore = useProfileStore()
 <style>
 .header {
     background-color: #DDEBDB;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
-ul {
-    margin: 0;
-    padding: 0;
+.menu-flex-grow {
+    flex-grow: 1;
 }
 
-.nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.router_link {
-    color: #11240E;
-    text-decoration: none;
-    font-weight: 500;
-    margin: 0 1rem 0 1rem;
-    transition: 0.3s;
-}
-
-.router_link:hover {
-    font-weight: 800;
+.el-menu {
+    width: 100%;
 }
 </style>
