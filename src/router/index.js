@@ -5,7 +5,7 @@ const routes = [
     {
         path: '/home', redirect: '/home/list', component: () => import('@/views/Main.vue'), children: [
             { path: 'list', name: 'list', component: () => import('@/components/List/List.vue') },
-            { path: 'table', name: 'table', component: () => import('@/components/List/List.vue') },
+            { path: 'table', name: 'table', component: () => import('@/components/Table/Table.vue') },
         ]
     },
     {

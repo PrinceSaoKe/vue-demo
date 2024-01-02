@@ -8,7 +8,6 @@ const authRef = ref(false)
 
 onMounted(() => {
     authRef.value = profileStore.username !== ''
-    console.log(authRef.value)
 })
 </script>
 
