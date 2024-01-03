@@ -1,15 +1,10 @@
 <script setup>
+import { useProfileStore } from '@/store/profileStore.js';
+import { useTodoStore } from '@/store/todoStore.js';
 import { Search } from '@element-plus/icons-vue';
-import { reactive } from "vue";
 
-const datas = reactive([
-    { content: '复习操作系统', createTime: '2023/12/17 22:54', finishTime: '2023/12/19 23:59' },
-    { content: '学习前端芝士', createTime: '2023/12/17 22:54', finishTime: '2023/12/25 23:59' },
-    { content: '学习前端芝士', createTime: '2023/12/17 22:54', finishTime: null },
-    { content: '学习前端芝士', createTime: '2023/12/17 22:54', finishTime: null },
-    { content: '学习前端芝士', createTime: '2023/12/17 22:54', finishTime: null },
-    { content: '学习前端芝士', createTime: '2023/12/17 22:54', finishTime: null },
-])
+const todoStore = useTodoStore()
+const profileStore = useProfileStore()
 </script>
 
 <template>
@@ -19,7 +14,7 @@ const datas = reactive([
             <Search />
         </el-icon>
     </span>
-    <div v-for="data in datas">
+    <div v-for="data in todoStore[profileStore['username']]">
         <div class="card_margin">
             <el-card shadow="hover" body-class="card">
                 <el-checkbox class="checkbox"></el-checkbox>

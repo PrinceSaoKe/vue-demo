@@ -26,6 +26,7 @@ import TodoTable from './TodoTable.vue';
 .table-title {
     display: flex;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .table-title .title {

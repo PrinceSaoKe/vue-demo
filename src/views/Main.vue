@@ -7,7 +7,7 @@ const profileStore = useProfileStore()
 const authRef = ref(false)
 
 onMounted(() => {
-    authRef.value = profileStore.username !== ''
+    authRef.value = profileStore.username !== null
 })
 </script>
 
