@@ -11,9 +11,6 @@ const showDialogRef = ref(false)
 const updateRow = reactive({
     id: null,
     content: null,
-    // finished: null,
-    // createTime: null,
-    // finishTime: null,
 })
 
 function finish(index: number, row) {
