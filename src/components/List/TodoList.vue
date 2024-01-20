@@ -17,11 +17,11 @@ const profileStore = useProfileStore()
     <div v-for="data in todoStore[profileStore['username']]">
         <div class="card_margin">
             <el-card shadow="hover" body-class="card">
-                <el-checkbox class="checkbox"></el-checkbox>
                 {{ data.content }}
             </el-card>
         </div>
     </div>
+    <el-result v-if="profileStore.username === null" icon="error" title="未登录"></el-result>
 </template>
 
 <style>

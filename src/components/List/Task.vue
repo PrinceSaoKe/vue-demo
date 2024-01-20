@@ -4,6 +4,8 @@ import { useTodoStore } from '@/store/todoStore.js';
 import { Select } from '@element-plus/icons-vue';
 import { ref } from "vue";
 
+const props = defineProps(['date'])
+
 const todoStore = useTodoStore()
 const profileStore = useProfileStore()
 
@@ -15,7 +17,7 @@ function addData() {
         id: id,
         content: todoContent.value,
         createTime: new Date(),
-        finishTime: new Date(),
+        finishTime: props.date,
     }
     todoStore[profileStore['username']].push(data)
 }

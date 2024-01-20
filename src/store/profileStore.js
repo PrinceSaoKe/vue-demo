@@ -9,4 +9,5 @@ export const useProfileStore = defineStore('profile', {
             email: null,
         }
     },
+    persist: true,
 })

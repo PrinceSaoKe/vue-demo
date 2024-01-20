@@ -6,6 +6,11 @@ const profileStore = useProfileStore()
 
 const authRef = ref(false)
 
+function onLogout() {
+    profileStore.username = null
+    profileStore.email = null
+}
+
 onMounted(() => {
     authRef.value = profileStore.username !== null
 })
@@ -20,7 +25,7 @@ onMounted(() => {
                 <el-menu-item index="/home/table">表格展示</el-menu-item>
                 <div class="menu-flex-grow"></div>
                 <el-menu-item index="/auth/login" v-if="authRef">{{ profileStore.email }}</el-menu-item>
-                <el-menu-item index="/auth/login">{{ authRef ? '退出' : '登录' }}</el-menu-item>
+                <el-menu-item index="/auth/login" @click="onLogout">{{ authRef ? '退出' : '登录' }}</el-menu-item>
             </el-menu>
         </el-header>
         <el-main>

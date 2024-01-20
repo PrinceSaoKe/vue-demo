@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue';
-const value = ref(new Date())
+
+const dateRef = ref(new Date())
+defineExpose({ dateRef })
 </script>
 
 <template>
-    <el-calendar v-model="value" />
+    <el-calendar v-model="dateRef" />
 </template>
 
 <style>

@@ -1,9 +1,13 @@
 <script lang="ts" setup>
+import { useProfileStore } from '@/store/profileStore.js';
+import { useTodoStore } from '@/store/todoStore.js';
 import type { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
+const todoStore = useTodoStore()
+const profileStore = useProfileStore()
 
 interface RegisterForm {
     username: string,
@@ -49,6 +53,7 @@ async function submit(ruleFormRef: FormInstance | undefined) {
 function register(formData: Object) {
     const str = JSON.stringify(formData)
     localStorage.setItem(formData['username'], str)
+    todoStore[formData['username']] = []
 }
 </script>
 

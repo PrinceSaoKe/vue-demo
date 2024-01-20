@@ -1,15 +1,23 @@
 <script setup>
-import Calendar from './Calendar.vue';
+import MyCalendar from '@/components/MyCalendar.vue';
+import { ref } from "vue";
 import Task from './Task.vue';
 import TodoList from './TodoList.vue';
+
+const calendar = ref()
+const dateRef = ref(new Date())
+
+function setDate() {
+    dateRef.value = calendar.value.dateRef
+}
 </script>
 
 <template>
     <div class="span">
         <div class="half">
-            <Calendar class="left_part"></Calendar>
+            <MyCalendar ref="calendar" @click="setDate" class="left_part"></MyCalendar>
             <div class="left_part">
-                <Task></Task>
+                <Task :date="dateRef"></Task>
             </div>
         </div>
         <div class="half">
