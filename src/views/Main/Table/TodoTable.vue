@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script setup>
 import { useProfileStore } from '@/store/profileStore.js';
 import { useTodoStore } from '@/store/todoStore.js';
 import { reactive, ref } from "vue";
@@ -16,8 +16,8 @@ const updateRow = reactive({
 })
 
 function getData() {
-    let data1 = <any>[]   // 存放的待办事项
-    const data2 = <any>[]   // 存放日期符合且内容符合的待办事项
+    let data1 = []   // 存放的待办事项
+    const data2 = []   // 存放日期符合且内容符合的待办事项
 
     // 筛选日期符合的待办事项
     if (props.date === null) {
@@ -48,7 +48,7 @@ function getData() {
     }
 }
 
-function finish(index: number, row) {
+function finish(index, row) {
     for (const i of todoStore[profileStore['username']]) {
         if (i['id'] === row.id) {
             i['finished'] = true
@@ -57,7 +57,7 @@ function finish(index: number, row) {
     }
 }
 
-function showDialog(index: number, row) {
+function showDialog(index, row) {
     updateRow.id = row.id
     updateRow.content = row.content
     showDialogRef.value = true
@@ -73,8 +73,8 @@ function updateData() {
     }
 }
 
-function deleteData(index: number, row) {
-    todoStore[profileStore['username']].forEach((item, index: number, array) => {
+function deleteData(index, row) {
+    todoStore[profileStore['username']].forEach((item, index, array) => {
         if (item.id === row.id) {
             array.splice(index, 1)
             return
