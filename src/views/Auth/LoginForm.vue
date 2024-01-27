@@ -1,10 +1,9 @@
-<script lang="ts" setup>
+<script setup>
 import { useProfileStore } from '@/store/profileStore.js';
-import type { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-const ruleFormRef = ref<FormInstance>()
+const ruleFormRef = ref()
 const profileStore = useProfileStore()
 const router = useRouter()
 
@@ -13,7 +12,7 @@ const loginForm = reactive({
     password: '',
 })
 
-const rules = reactive<FormRules>({
+const rules = reactive({
     username: [
         { required: true, message: "请输入用户名", trigger: 'blur' },
     ],
@@ -22,7 +21,7 @@ const rules = reactive<FormRules>({
     ],
 })
 
-async function submit(ruleFormRef: FormInstance | undefined) {
+async function submit(ruleFormRef) {
     if (!ruleFormRef) return
     await ruleFormRef.validate((valid, fields) => {
         // 检测成功
@@ -32,7 +31,7 @@ async function submit(ruleFormRef: FormInstance | undefined) {
     })
 }
 
-function login(formData: Object) {
+function login(formData) {
     const str = localStorage.getItem(formData['username'])
     if (str != null) {
         const user = JSON.parse(str)

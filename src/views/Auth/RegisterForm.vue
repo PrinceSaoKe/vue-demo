@@ -1,29 +1,20 @@
-<script lang="ts" setup>
-import { useProfileStore } from '@/store/profileStore.js';
+<script setup>
 import { useTodoStore } from '@/store/todoStore.js';
-import type { FormInstance, FormRules } from 'element-plus';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
 const todoStore = useTodoStore()
-const profileStore = useProfileStore()
 
-interface RegisterForm {
-    username: string,
-    email: string,
-    password: string,
-}
+const ruleFormRef = ref()
 
-const ruleFormRef = ref<FormInstance>()
-
-const registerForm = reactive<RegisterForm>({
+const registerForm = reactive({
     username: '',
     email: '',
     password: '',
 })
 
-const rules = reactive<FormRules<RegisterForm>>({
+const rules = reactive({
     username: [
         { required: true, message: "请输入用户名", trigger: 'blur' },
         { min: 6, max: 14, message: "长度必须在6~14之间", trigger: 'blur' },
@@ -38,7 +29,7 @@ const rules = reactive<FormRules<RegisterForm>>({
     ],
 })
 
-async function submit(ruleFormRef: FormInstance | undefined) {
+async function submit(ruleFormRef) {
     if (!ruleFormRef) return
     await ruleFormRef.validate((valid) => {
         // 检测成功
@@ -50,7 +41,7 @@ async function submit(ruleFormRef: FormInstance | undefined) {
     })
 }
 
-function register(formData: Object) {
+function register(formData) {
     const str = JSON.stringify(formData)
     localStorage.setItem(formData['username'], str)
     todoStore[formData['username']] = []
