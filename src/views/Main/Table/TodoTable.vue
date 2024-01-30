@@ -1,14 +1,14 @@
 <script setup>
+import { deleteTodo, readTodo, updateTodo } from "@/api/api.js";
 import { useProfileStore } from '@/store/profileStore.js';
-import { useTodoStore } from '@/store/todoStore.js';
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref } from "vue";
 
 const props = defineProps(['searchStr', 'date'])
 
-const todoStore = useTodoStore()
 const profileStore = useProfileStore()
 
 const showDialogRef = ref(false)
+const todoDataRef = ref([])
 
 const updateRow = reactive({
     id: null,
@@ -16,19 +16,19 @@ const updateRow = reactive({
 })
 
 function getData() {
-    let data1 = []   // 存放的待办事项
+    let data1 = []   // 存放日期符合的待办事项
     const data2 = []   // 存放日期符合且内容符合的待办事项
 
     // 筛选日期符合的待办事项
     if (props.date === null) {
-        data1 = todoStore[profileStore['username']]
+        data1 = todoDataRef.value
     } else {
         const year = props.date.getFullYear()
         const month = props.date.getMonth()
         const day = props.date.getDay()
 
-        todoStore[profileStore['username']].forEach(element => {
-            const time = new Date(Date.parse(element.finishTime))
+        todoDataRef.value.forEach(element => {
+            const time = new Date(Date.parse(element.endTime))
             if (time.getFullYear() === year && time.getMonth() === month && time.getDay() === day) {
                 data1.push(element)
             }
@@ -49,12 +49,10 @@ function getData() {
 }
 
 function finish(index, row) {
-    for (const i of todoStore[profileStore['username']]) {
-        if (i['id'] === row.id) {
-            i['finished'] = true
-            return
-        }
-    }
+    updateTodo(row.taskId, profileStore.userId).then((res) => {
+        console.log(res.data)
+        getTodoData()
+    })
 }
 
 function showDialog(index, row) {
@@ -64,31 +62,42 @@ function showDialog(index, row) {
 }
 
 function updateData() {
-    for (const i of todoStore[profileStore['username']]) {
-        if (i['id'] === updateRow['id']) {
-            i['content'] = updateRow['content']
-            showDialogRef.value = false
-            return
-        }
-    }
+    // for (const i of todoStore[profileStore['username']]) {
+    //     if (i['id'] === updateRow['id']) {
+    //         i['content'] = updateRow['content']
+    //         showDialogRef.value = false
+    //         return
+    //     }
+    // }
+    showDialogRef.value = false
+    alert('该接口暂未实现')
 }
 
 function deleteData(index, row) {
-    todoStore[profileStore['username']].forEach((item, index, array) => {
-        if (item.id === row.id) {
-            array.splice(index, 1)
-            return
-        }
-    });
+    deleteTodo(row.taskId, profileStore.userId).then((res) => {
+        console.log(res.data)
+        getTodoData()
+    })
 }
+
+function getTodoData() {
+    readTodo(profileStore.userId).then((res) => {
+        console.log(res.data)
+        todoDataRef.value = res.data.data.item
+    })
+}
+
+onMounted(() => {
+    getTodoData()
+})
 </script>
 
 <template>
     <el-table :data="getData()" :border="true">
-        <el-table-column label="序号" prop="id" width="100" align="center" />
+        <el-table-column label="序号" prop="taskId" width="100" align="center" />
         <el-table-column label="内容" prop="content" align="center" />
-        <el-table-column label="创建时间" prop="createTime" align="center" />
-        <el-table-column label="完成时间" prop="finishTime" align="center" />
+        <el-table-column label="创建时间" prop="startTime" align="center" />
+        <el-table-column label="完成时间" prop="endTime" align="center" />
         <el-table-column label="操作" fixed="right" align="center">
             <template #default="scope">
                 <el-button color="#FFB800" v-if="scope.row.finished" style="color: white;" disabled>已完成</el-button>

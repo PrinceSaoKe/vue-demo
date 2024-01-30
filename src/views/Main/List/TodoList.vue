@@ -1,10 +1,24 @@
 <script setup>
+import { readTodo } from "@/api/api.js";
 import { useProfileStore } from '@/store/profileStore.js';
-import { useTodoStore } from '@/store/todoStore.js';
 import { Search } from '@element-plus/icons-vue';
+import { onMounted, ref } from "vue";
 
-const todoStore = useTodoStore()
 const profileStore = useProfileStore()
+
+const todoDataRef = ref([])
+
+function getTodoData() {
+    readTodo(profileStore.userId).then((res) => {
+        console.log(res.data)
+        todoDataRef.value = res.data.data.item
+        console.log(todoDataRef.value)
+    })
+}
+
+onMounted(() => {
+    getTodoData()
+})
 </script>
 
 <template>
@@ -14,7 +28,7 @@ const profileStore = useProfileStore()
             <Search />
         </el-icon>
     </span>
-    <div v-for="data in todoStore[profileStore['username']]">
+    <div v-for="data in todoDataRef">
         <div class="card_margin">
             <el-card shadow="hover" body-class="card">
                 {{ data.content }}

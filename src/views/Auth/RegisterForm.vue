@@ -1,4 +1,5 @@
 <script setup>
+import { register } from "@/api/api.js";
 import { useTodoStore } from '@/store/todoStore.js';
 import { reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
@@ -34,17 +35,13 @@ async function submit(ruleFormRef) {
     await ruleFormRef.validate((valid) => {
         // 检测成功
         if (valid) {
-            register(registerForm)
-            alert('注册成功')
-            router.push('/auth/login')
+            register(registerForm.username, registerForm.email, registerForm.password).then((res) => {
+                console.log(res.data)
+                alert(res.data.msg)
+                router.push('/auth/login')
+            })
         }
     })
-}
-
-function register(formData) {
-    const str = JSON.stringify(formData)
-    localStorage.setItem(formData['username'], str)
-    todoStore[formData['username']] = []
 }
 </script>
 
